@@ -9,7 +9,7 @@ A site to ship video games and buy game shipping cards
 
 ## Deployed Site
 
-The cooking recipes blog is live at [cooking-recipes.zohair.tech](https://cooking-recipes.zohair.tech/)
+The Amanos Store site is live at [amanos.zohair.tech](https://amanos.zohair.tech)
 
 ## Developer
 
