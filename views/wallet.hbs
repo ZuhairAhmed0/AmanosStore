@@ -1,0 +1,84 @@
+<section class="user-wallet">
+    <div class="container">
+        {{> userMenu}}
+        {{#if errors.balance}}
+        <div class="alert-error">
+          {{errors.balance}}
+        </div>
+        {{/if}}
+        <div class="d-flex balance">
+            <div>
+                <span>
+                    رصيد المحظفة
+                    {{formatCurrency user.balance}}
+                </span>
+                <i class="bx bxs-bank"></i>
+            </div>
+            <button class="btn btn-primary"> شحن رصيد المحفظة
+                <i class="bx bx-plus-circle"></i>
+            </button>
+        </div>
+        {{#if errors.amount}}
+        <form action="/user/checkout" method="post" class="form">
+            {{else}}
+            <form action="/user/checkout" method="post" id="add-balance" class="form">
+                {{/if}}
+                <div class="field">
+                    <label for="" class="control-label">
+                        المبلغ
+                    </label>
+                    <input type="hidden" name="name" value="شحن المحفظة" />
+                <input type="hidden" name="count" value="1" />
+            <input
+            type="number"
+            name="price"
+            placeholder="ادخل المبلغ الذي تريد اضافته"
+            class="form-control" />
+            <input type="hidden" name="type-of-operation" value="wallet-top-up" />
+        </div>
+        <div class="actions">
+            <button class="btn btn-primary">اضافة</button>
+        </div>
+        </form>
+        {{> filterOption title="سجل المعاملات" path="user/transactions" today=today}}
+        <div class="transactions">
+            {{#if transactions}}
+            {{#each transactions}}
+                <section class="d-flex transactions-item">
+                    <p>
+                        <strong>
+                            {{#if (eq transactionType 'withdraw')}}
+                            مدفوع للطلب -
+                            {{else}}
+                            شحن المحفظة -
+                            {{/if}}
+                            <a href="/user/orders/{{orderId._id}}/details">{{orderId.orderId}}</a>
+                        </strong>
+                        <date dir="ltr">
+                        {{dateFormat createdAt "MM-DD-YYYY, hh:mm a"}}
+                        </date>
+                    </p>
+                    <p>
+                        {{#if (eq transactionType 'withdraw')}}
+                        <strong class="negative">
+                            <i class="bx bx-arrow-to-top"></i>
+                            {{formatCurrency totalPrice}}
+                        </strong>
+                        {{else}}
+                        <strong class="positive">
+                            <i class="bx bx-arrow-to-bottom"></i>
+                            {{formatCurrency totalPrice}}
+                        </strong>
+                        {{/if}}
+                        {{status}}
+                    </p>
+                </section>
+            {{/each}}
+            {{else}}
+            <p class="empty-cart">
+            لا توجد معاملات
+            </p>
+            {{/if}}
+        </div>
+    </div>
+</section>

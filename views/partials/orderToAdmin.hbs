@@ -1,0 +1,36 @@
+<div
+  style="direction: rtl; padding: 30px; border: 1px solid #ddd; border-radius:
+        10px; margin: 20px auto; width: 80%; box-shadow: 1px 1px 4px #999;"
+>
+  <h1>
+    طلب جديد
+  </h1>
+  <p>
+    لديك طلب جديد مقدم من
+    {{order.userId.fullname}}
+    {{#each order.products}}
+      <div class="product d-flex">
+        <span dir="rtl" style="display: inline-block">{{name}}</span>
+        -
+        {{amount}}
+        <strong>{{count}}x</strong>
+      </div>
+    {{/each}}
+  </p>
+  <a
+    href="https://amanos.zohair.tech/dashboard/orders/{{order.id}}/details"
+    style="padding: 7px 20px;
+            background: green;
+			text-align: center;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin:
+            5px auto;
+            width: 120px;"
+  >
+    تفاصيل الطلب 
+  </a>
+</div>

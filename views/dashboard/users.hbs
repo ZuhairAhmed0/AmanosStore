@@ -1,0 +1,73 @@
+<section class="dashboard-user">
+    <aside class="sidebar">
+        {{> dashboardMenu}}
+    </aside>
+    <div class="dashboard-detials">
+        <form class="form-search d-flex" action="/dashboard/users/search" method="get">
+            <button class="btn btn-primary">بحث <i class="bx bx-search"></i></button>
+            <input type="search" name="searchText" id="" class="form-control" placeholder="بحث عن مستخدم">
+        </form>
+        {{#if notFound}}
+        <div class="alert-error">
+          {{notFound}}
+          <a href="/dashboard/users">مسح البحث</a>
+        </div>
+    {{/if}}
+        <section class="main-content">
+            {{#if message}}
+            <div class="alert-error">
+                {{message}}
+            </div>
+            {{/if}}
+            <div class="order">
+                <div class="d-flex filterOption">
+                    <h3>
+                        المستحدمين
+                        <i class="bx bx-group"></i>
+                    </h3>
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" name="" id="" class="select-all"></th>
+                        <th>رقم الحساب</th>
+                        <th>الاسم الكامل</th>
+                        <th>الرصيد</th>
+                        <th>عدد الطلبات</th>
+                        <th>الصلاحية</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#if users}}
+                    {{#each users}} 
+                    <tr>
+                        <th><input type="checkbox" name="" id=""></th>
+                        <td>{{accountNumber}}</td>
+                        <td>{{fullname}}</td>
+                        <td class="price">{{formatCurrency balance}}</td>
+                        <td>{{ordersCount}} طلب</td>
+                        <td>{{#if (eq role "admin")}}
+                                <span class="cancelled">{{role}}</span>
+                            {{else if (eq role "supervisor")}}
+                                <span class="processing">{{role}}</span>
+                            {{else}}
+                                <span class="complated">{{role}}</span>
+                            {{/if}}
+                        </td>
+                        <td>
+                            <a href="/dashboard/users/{{_id}}/orders" class="btn details"><i class="bx bx-table"></i></a>
+                            <a href="/dashboard/users/{{_id}}/update-role" class="btn edit"><i class="bx bx-edit"></i></a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{else}}
+                    <tr><th class="empty" colspan="8">لا يوجد مستخدمين</th></tr>
+                    {{/if}}
+                </tbody>
+            </table>
+        </section>
+    </div>
+</section>

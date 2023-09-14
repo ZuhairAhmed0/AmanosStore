@@ -1,0 +1,48 @@
+<nav class="logo-navbar">
+  <div class="container">
+    
+    <div class="d-flex">
+        <a href="/" class="logo">
+        <img src="/images/logo.png" alt="Amanos">
+        </a>
+      <div class="welcome">
+      <h3>مرحبا بك في أمانوس ستور</h3>
+    </div>
+      <div class="d-flex">
+        {{#if isLoggedIn}}
+        <div class="field">
+          رصيدي
+          {{formatCurrency user.balance}}
+        </div>
+        {{else}}
+        <a href="/auth/login"><i class="bx bx-user-plus"></i></a>
+        {{/if}}
+        <a class="cart" href="/cart">
+          <i class="bx bx-cart-alt"></i>
+          <span class="cart-count">{{reduce cart "count"}}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+<nav class="navbar">
+  <div class="container">
+    <ul class="d-flex">
+      <li><a href="/">
+        <i class="bx bx-home"></i>
+        الرئيسية</a></li>
+      <li><a href="/games-top-up">
+        <i class="bx bx-joystick"></i>
+        شحن الالعاب</a></li>
+      <li><a href="/game-cards">
+        <i class="bx bx-credit-card"></i>
+        بطاقة الالعاب</a></li>
+      <li><a href="/user/profile">
+        <i class="bx bx-user"></i>
+        حسابي</a></li>
+      <li><a href="/user/orders">
+        <i class="bx bx-receipt"></i>
+        طلباتي</a></li>
+    </ul>
+  </div>
+</nav>

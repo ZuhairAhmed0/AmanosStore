@@ -1,0 +1,121 @@
+<section class="order-details">
+  <div class="container">
+
+    {{#if success}}
+      <h3 class="alert-success">
+       {{success}}
+      </h3>
+    {{/if}}
+    <p>
+      <span>رقم الطلب </span>
+      <strong>{{order.orderId}}</strong>
+    </p>
+    <p>
+      <span>حالة الطلب </span>
+      <strong>{{order.status}}</strong>
+    </p>
+    <p>
+      <span>تاريخ الطلب</span>
+      <strong>
+        <date dir="ltr">
+          {{dateFormat order.createdAt "MM-DD-YYYY, hh:mm a"}}
+        </date>
+      </strong>
+    </p>
+    <p>
+      <span>وسيلة الدفع</span>
+      <strong>{{order.paymentMethod}}</strong>
+    </p>
+    {{#if order.transactionNo}}
+      <p>
+        <span>رقم العملية</span>
+        <strong>{{order.transactionNo}}</strong>
+      </p>
+    {{/if}}
+    <p>
+      <span>الاجمالي</span>
+      <strong>{{formatCurrency order.totalPrice}}</strong>
+    </p>
+    <div class="container">
+      <section class="order" dir="rtl">
+        <strong>تفاصيل المنتج موضحه ادانه</strong>
+        <div class="d-flex">
+          <strong>المنتج </strong>
+          <strong>الاجمالي </strong>
+        </div>
+        {{#each order.products}}
+          <div class="product d-flex">
+            <div>
+              <span dir="rtl" style="display: inline-block">{{name}}</span>
+              -
+              {{amount}}
+              <strong>{{count}}x</strong>
+              <br />
+              {{#if topUpId}}
+                معرف اللاعب -
+                {{topUpId}}
+              {{/if}}
+              {{#if topUpEmail}}
+                معرف اللاعب -
+                {{topUpEmail}}
+              {{/if}}
+
+            </div>
+
+            <span>{{formatCurrency price}}</span>
+
+          </div>
+          {{#if cardNo}}
+            <div class="d-flex alert-success">
+              {{#if (eq category "gameCards")}}
+                <strong>ارقام البطاقات </strong>
+                {{#each cardNo}}
+                  <span>{{this}}</span>
+                {{/each}}
+              {{else}}
+                <strong>تم شحن الحساب</strong>
+                <strong><i class="bx bx-check-square"></i></strong>
+              {{/if}}
+            </div>
+          {{/if}}
+        {{/each}}
+        <div class="d-flex">
+          <strong>المجموع</strong>
+          <span>{{formatCurrency order.totalPrice}}</span>
+        </div>
+        <div class="d-flex">
+          <strong>وسيلة الدفع</strong>
+          <span>{{order.paymentMethod}}</span>
+        </div>
+        <div class="d-flex">
+          <strong>الاجمالي</strong>
+          <span>{{formatCurrency order.totalPrice}}</span>
+        </div>
+        <div class="actions">
+          <a
+                href="/user/orders/{{order.id}}/repeat"
+                class="btn btn-primary"
+              >
+                تكرار الطلب</a>
+        </div>
+        <div>
+          <strong>
+            عنوان الطلب
+          </strong>
+          <div>
+            الاسم:
+            {{order.userId.fullname}}
+          </div>
+          <div>
+            البريد الالكتروني:
+            {{order.userId.email}}
+          </div>
+          <div>
+            رقم الواتساب اذا تم اضافته:
+            {{order.phone}}
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+<section class="dashboard-product">
+  <aside class="sidebar">
+    {{> dashboardMenu}}
+  </aside>
+  <div class="dashboard-detials">
+    <section class="main-content">
+        <div class="order">
+                <table class="orders">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" name="" id="" class="select-all"></th>
+                            <th>الشهر</th>
+                            <th>العملاء</th>
+                            <th>البطاقات المضافة</th>
+                            <th>الطلبات</th>
+                            <th>المبيعات</th>
+                            <th>الايرادات</th>
+                            <th>الارباح</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if reports}}
+                        {{#each reports}}
+                        <tr>
+                            <th><input type="checkbox" name="" id=""></th>
+                            <td>شهر {{month}}</td>
+                            <td>{{customers}}</td>
+                            <td>{{cards}}</td>
+                            <td>{{orders}}</td>
+                            <td>{{sales}}</td>
+                            <td>{{formatCurrency revenues}}</td>
+                            <td>{{formatCurrency profits}}</td>
+                            <td>
+                                <a href="/dashboard/reports/{{month}}" class="btn details"><i class="bx bx-printer"></i></a>
+                                {{!-- <a href="/dashboard/orders/{{_id}}/delete?reqUrl=orders" class="btn delete"><i class="bx bx-trash"></i></a> --}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        <tr><th class="empty" colspan="8">لا توجد تقارير</th></tr>
+                        {{/if}}
+                    </tbody>
+                </table>
+            </div>
+    </section>
+  </div>
+</section>

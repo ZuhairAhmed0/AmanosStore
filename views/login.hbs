@@ -1,0 +1,66 @@
+<div class="container">
+  {{#if message}}
+    <div class="alert-success">
+      {{message}}
+    </div>
+  {{/if}}
+  <form
+    action="/auth/login?returnTo={{returnTo}}"
+    method="post"
+    class="form"
+    autocomplete="off"
+    autocapitalize="off"
+  >
+    <h3 class="form-title">
+      تسجيل الدخول
+    </h3>
+    <div class="field">
+      <label for="username" class="control-label">
+        البريد الالكتروني او اسم المستخدم
+        <samp class="alert-danger">
+          {{errors.username}}
+        </samp></label>
+      <div class="form-group">
+        <i class="bx bx-user"></i>
+        <input
+          type="text"
+          name="username"
+          autofocus
+          placeholder="ادخل البريد الالكتروني او اسم المستخدم"
+          value="{{values.username}}"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <label for="password" class="control-label">كلمة المرور
+        <samp class="alert-danger">
+          {{errors.password}}
+        </samp></label>
+      <div class="form-group">
+        <i class="bx bx-show show-password"></i>
+        <i class="bx bx-hide hide-password"></i>
+        <input
+          type="password"
+          name="password"
+          placeholder="ادخل كلمة المرور"
+          value="{{values.password}}"
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="d-flex">
+      <a href="/auth/forget-password">هل نسيت كلمة المرور ؟</a>
+      <a href="/auth/signup">مستخدم جديد</a>
+    </div>
+    <div class="refund-policy">
+      <input type="checkbox" id="refundPolicy" />
+      <label for="refundPolicy">لقد قرأت
+        <a href="/terms-and-conditions">الشروط والاحكام</a>
+        لهذا الموقع وأوافق عليها</label>
+    </div>
+    <div class="actions">
+      <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
+    </div>
+  </form>
+</div>

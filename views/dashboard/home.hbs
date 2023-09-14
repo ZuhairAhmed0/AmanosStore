@@ -1,0 +1,114 @@
+<section class="dashboard-home">
+    <aside class="sidebar">
+        {{> dashboardMenu}}
+    </aside>
+    <div class="dashboard-detials">
+        <section class="sales-revenue">
+        <h2>
+            إيرادات المبيعات
+        </h2>
+        <div class="d-flex">
+            <div class="d-flex">
+                <i class="bx bx-badge-check"></i>
+                <p>
+                    <strong>{{calcSales productsDetails "sales"}}</strong>
+                    <span>المبيعات</strong>
+                </p>
+            </div>
+            <div class="d-flex">
+                <i class="bx bx-group"></i>
+                <p>
+                    <strong>{{coustomer}}</strong>
+                    <span>العملاء</strong>
+                </p>
+            </div>
+            <div class="d-flex">
+                <i class="bx bx-layout"></i>
+                <p>
+                    <strong>{{formatCurrency (calcSales productsDetails "revenues")}}</strong>
+                    <span>الايرادات</strong>
+                </p>
+            </div>
+            <div class="d-flex">
+                <i class="bx bx-money"></i>
+                <p>
+                    <strong>{{formatCurrency (calcSales productsDetails "profit") }}</strong>
+                    <span>الارباح</strong>
+                </p>
+            </div>
+        </div>
+        </section>
+        <section class="main-content">
+            <div class="per-total d-flex">
+                <div>
+                    <i class="bx bx-group"></i>
+                    <span>عدد المستخدمين</span>
+                    <h3>{{usersCount}}</h3>
+                </div>
+                <div>
+                    <i class="bx bx-gift"></i>
+                    <span>عدد المنتجات</span>
+                    <h3>{{productsCount}}</h3>
+                </div>
+                <div>
+                    <i class="bx bx-notepad"></i>
+                    <span>عدد الطلبات</span>
+                    <h3>{{ordersCount}}</h3>
+                </div>
+                <div>
+                    <i class="bx bx-notepad"></i>
+                    <span>الطلبات غير مكتلمة</span>
+                    <h3>{{incompalteOrders}}</h3>
+                </div>
+            </div>
+            <div class="per-day d-flex">
+                <div class="day-orders">
+                    <strong>الطلبات</strong>
+                    <p>عدد طلبات اليوم</p>
+                    <strong>{{orderOfDay}}</strong>
+                    <div class="circle" style="background: conic-gradient(var(--main-color) 80%, transparent 0);">
+                        <div class="percent">
+                            80%
+                        </div>
+                    </div>
+                </div>
+                <div class="sales">
+                    <strong>المبيعات</strong>
+                    <p>عدد مبيعات اليوم</p>
+                    <strong>{{salesOfDay}}</strong>
+                    <div class="circle" style="background: conic-gradient(var(--main-color) 55%, transparent 0);">
+                        <div class="percent">
+                            55%
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div> 
+            <div class="per-day d-flex">
+                <div class="visits">
+                    <strong>الايرادات</strong>
+                    <p>إجمالي ايرادات اليوم</p>
+                    <strong>{{formatCurrency revenuesOfDay}}</strong>
+                    <div class="circle" style="background: conic-gradient(var(--main-color) 70%, transparent 0);">
+                        <div class="percent">
+                            70%
+                        </div>
+                    </div>
+                </div>
+                <div class="profits">
+                    <strong>الارباح</strong>
+                    <p>إجمالي ارباح اليوم </p>
+                    <strong>{{formatCurrency profitsOfDay}}</strong>
+                    <div class="circle" style="background: conic-gradient(var(--main-color) 30%, transparent 0);">
+                        <div class="percent">
+                            30%
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </div>
+    
+</section>

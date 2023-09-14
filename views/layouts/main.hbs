@@ -1,0 +1,39 @@
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amanos Store - {{title}} </title>
+    <meta name="theme-color" content="#f1f6fa">
+    <link rel="icon" href="/images/s-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/boxions/css/boxicons.min.css" />
+  </head>
+  <body>
+    <!-- ========== Start Navber ========== -->
+        {{>navbar}}
+    <!-- ========== End Navber ========== --
+
+    <!-- ========== Start Main content ========== -->
+      <main>
+        {{{body}}}
+
+        <div class="go-up">
+          <i class="bx bx-up-arrow-alt"></i>
+        </div>
+      </main>
+
+<div class="loading-wait">
+<span></span>
+<span></span>
+<span></span>
+</div>
+    <!-- ========== End Main content ========== -->
+
+    <!-- ========== Start Footer ========== -->
+        {{>footer}}
+    <!-- ========== End Footer ========== -->
+    <script src="/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/index.js"></script>
+  </body>
+</html>

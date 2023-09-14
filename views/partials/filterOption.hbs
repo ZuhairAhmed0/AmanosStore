@@ -1,0 +1,32 @@
+<section class="filterOption">
+    <h3>
+        {{title}}
+        <i class="bx bx-spreadsheet"></i>
+    </h3>
+    <form action="/{{path}}/filter" method="post">
+        <select name="status" class="filterData" >
+            <option disabled selected>فلتر</option>
+            <option value="مكتمل">مكتمل</option>
+            <option value="قيد المعالجة">غير مكتمل</option>
+            <option value="ملغي">ملغي</option>
+            <option value="all">عرض جميع {{title}}  </option>
+        </select>
+    </form>
+    <form action="/{{path}}/filter" method="post">
+        <select name="limit" class="filterData" >
+            <option disabled selected>عرض المزيد</option>
+            <option value="12">12</option>
+            <option value="24">24</option>
+            <option value="48">48</option>
+            <option value="all">عرض جميع {{title}}</option>
+        </select>
+    </form>
+    <form action="/{{path}}/filter" method="post">
+        <input
+        type="date"
+        name="dateFilter"
+        value="{{dateFormat today 'YYYY-MM-DD'}}"
+        class="filterData"
+        />
+    </form>
+</section>

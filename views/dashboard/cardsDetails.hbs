@@ -1,0 +1,117 @@
+<section class="dashboard-product">
+    <aside class="sidebar">
+        {{> dashboardMenu}}
+    </aside>
+    <div class="dashboard-detials">
+        <section class="main-content">
+            {{#if success}}
+            <h3 class="alert-success">
+                {{success}}
+            </h3>
+            {{/if}}
+            <section class="filterOption">
+                <h3>
+                    {{title}}
+                    <i class="bx bx-spreadsheet"></i>
+                </h3>
+                <form action="" method="get">
+                    <select name="amountId" class="filterData" >
+                        <option disabled selected>قيمة البطاقة</option>
+                        {{#each  cards}}
+                        {{#if @first}}
+                        {{#each quantities}}
+                                <option value="{{_id}}">{{amount}}</option>
+                        {{/each}}
+                        {{/if}}
+                        {{/each}}
+                        <option value="all">عرض جميع البطاقات  </option>
+                    </select>
+                </form>
+                <form action="" method="get">
+                    <select name="status" class="filterData" >
+                        <option disabled selected>الحالة</option>
+                        <option value="متوفر">متوفر</option>
+                        <option value="غير متوفر">مباع</option>
+                        <option value="all">عرض جميع البطاقات  </option>
+                    </select>
+                </form>
+                <form action="" method="get">
+                    <select name="limit" class="filterData" >
+                        <option disabled selected>عرض المزيد</option>
+                        <option value="12">12</option>
+                        <option value="24">24</option>
+                        <option value="48">48</option>
+                        <option value="all">عرض جميع البطاقات</option>
+                    </select>
+                </form>
+                <form action="" method="get">
+                    <input
+                    type="date"
+                    name="createdAt"
+                    value="{{dateFormat today 'YYYY-MM-DD'}}"
+                    class="filterData"
+                    title="فرز عبر تاريخ الاضافة"
+                    />
+            </form>
+            <form action="" method="get">
+                    <input
+                    type="date"
+                    name="updatedAt"
+                    value="{{dateFormat today 'YYYY-MM-DD'}}"
+                    class="filterData"
+                        title="فرز عبر تاريخ البيع"
+                    />
+            </form>
+            </section>
+            <table class="products">
+                <thead>
+                    <tr>
+                        <th>رقم البطاقة</th>
+                        <th>قيمة البطاقة</th>
+                        <th>الحالة</th>
+                        <th>تاريخ الاضافة</th>
+                        <th>تاريخ البيع</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#if cards}}
+                    {{#each cards}}
+                    <tr>
+                        <td>{{code}}</td>
+                        <td>
+                            <span>{{product.name}} - </span>
+                            <span>
+                                {{product.amount}}
+                            </span>
+                        </td>
+                        <td>
+                            {{#if (eq status  "متوفر")}}
+                            <span class="complated">متوفر
+                            {{else}}
+                                <span class="processing">تم البيع</span>
+                            {{/if}}
+                            </td>
+                            <td>
+                                <date dir="ltr">{{dateFormat createdAt "MM-DD-YYYY, hh:mm a"}}</date>
+                            </td>
+                            <td>
+                                {{#if (eq status  "متوفر")}}
+                                ?
+                                {{else}}
+                                <date dir="ltr">{{dateFormat updatedAt "MM-DD-YYYY, hh:mm a"}}</date>
+                                {{/if}}
+                            </td>
+                            <td>
+                                <a href="/dashboard/products/add-card/{{amountId}}?cardNumbers={{code}}&cardId={{_id}}&productId={{product.productId}}&amount={{product.amount}}" class="btn edit"><i class="bx bx-edit"></i></a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        <tr><th class="empty" colspan="8">لا توجد بطاقات</th></tr>
+                        {{/if}}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </section>

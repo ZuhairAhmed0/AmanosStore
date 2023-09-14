@@ -1,0 +1,146 @@
+<section class="dashboard-home">
+    <aside class="sidebar">
+        {{> dashboardMenu}}
+    </aside>
+    <div class="dashboard-detials">
+        <section class="add-product">
+            {{#if success}}
+            <h3 class="alert-success">
+                {{success}}
+            </h3>
+            {{/if}}
+            <form action="/dashboard/products/add" method="post" class="form">
+                <h3 class="form-title">
+                    اضافة منتج جديد
+                </h3>
+
+                <div class="field">
+                    <label for="">اسم المنتج
+                        <span class="alert-danger">
+                            {{errors.name}}
+                        </span>
+                    </label>
+                    <input type="text" class="form-control" dir="auto" name="name" value="{{values.name}}" placeholder="مثلا شحن ببجي عن طريق ID" />
+            </div>
+            <div class="field">
+                <label for="">التنصيف
+                    <span class="alert-danger">
+                        {{errors.category}}
+                    </span>
+                </label>
+                <br />
+            <select class="form-control " name="category" id="category">
+                {{#if update}}
+                {{#if (eq values.category "topUpByAccount")}}
+                <option value="topUpById,الشحن عن طريق ID">الشحن عن طريق ID</option>
+                <option value="topUpByAccount,الشحن عن طريق الحساب" selected>الشحن عن طريق
+                    الحساب</option>
+                <option value="gameCards,بطاقات الالعاب">بطاقات الالعاب</option>
+                <option value="balanceTopUp,شحن رصيد الاتصالات">خدمات الاتصالات</option>
+                {{else if (eq values.category "gameCards")}}
+                <option value="topUpById,الشحن عن طريق ID">الشحن عن طريق ID</option>
+                <option value="topUpByAccount,الشحن عن طريق الحساب">الشحن عن طريق
+                    الحساب</option>
+                <option value="gameCards,بطاقات الالعاب" selected>بطاقات الالعاب</option>
+                <option value="balanceTopUp,شحن رصيد الاتصالات">خدمات الاتصالات</option>
+                {{else if (eq values.category "balanceTopUp")}}
+                <option value="topUpById,الشحن عن طريق ID">الشحن عن طريق ID</option>
+                <option value="topUpByAccount,الشحن عن طريق الحساب">الشحن عن طريق
+                    الحساب</option>
+                <option value="gameCards,بطاقات الالعاب">بطاقات الالعاب</option>
+                <option value="balanceTopUp,شحن رصيد الاتصالات" selected>خدمات الاتصالات</option>
+                {{else}}
+                    <option value="topUpById,الشحن عن طريق ID" selected>الشحن عن طريق ID</option>
+                    <option value="topUpByAccount,الشحن عن طريق الحساب">الشحن عن طريق
+                    الحساب</option>
+                    <option value="gameCards,بطاقات الالعاب">بطاقات الالعاب</option>
+                    <option value="balanceTopUp,شحن رصيد الاتصالات">خدمات الاتصالات</option>
+                {{/if}}
+                {{else}}
+                <option value="topUpById,الشحن عن طريق ID">الشحن عن طريق ID</option>
+                <option value="topUpByAccount,الشحن عن طريق الحساب">الشحن عن طريق
+                    الحساب</option>
+                <option value="gameCards,بطاقات الالعاب">بطاقات الالعاب</option>
+                <option value="balanceTopUp,شحن رصيد الاتصالات">خدمات الاتصالات</option>
+                {{/if}}
+            </select>
+        </div>
+        <div class="field">
+            <label for=""> فئة البطاقة
+                من فضلك افصل بين كل بطاقة بفاصلة (,)
+                <span class="alert-danger">
+                    {{errors.amounts}}
+                </span>
+            </label>
+            <input
+            type="text"
+            name="amounts"
+            class="form-control "
+            value="{{values.amounts}}"
+            placeholder="مثلا 100 جوهرة, 200 جوهرة, 300جوهرة"
+                dir="auto"
+            />
+    </div>
+    <div class="field">
+        <label for=""> سعر كل بطاقة
+            [من فضلك افصل بين سعر كل بطاقة بفاصلة (,)]
+            <span class="alert-danger">
+                {{errors.prices}}
+            </span>
+        </label>
+        <input type="text" class="form-control" dir="auto" name="prices" value="{{values.prices}}" placeholder="مثلا 100, 200, 300" />
+</div>
+<div class="field">
+        <label for=""> السعر الاجمالي لكل بطاقة
+            [من فضلك افصل بين سعر كل بطاقة بفاصلة (,)]
+            <span class="alert-danger">
+                {{errors.totalPrices}}
+            </span>
+        </label>
+        <input type="text" class="form-control" dir="auto" name="totalPrices" value="{{values.totalPrices}}" placeholder="مثلا 100, 200, 300" />
+</div>
+<div class="field">
+<label for="">العنوان الذي تريد ان يظهر مع الفئة
+<span class="alert-danger">
+{{errors.title}}
+</span>
+</label>
+<input
+type="text"
+class="form-control "
+name="title"
+value="{{values.title}}"
+placeholder="مثلا كمية الجواهر او كمية الشدات او قيمة البطاقة"
+    dir="auto"
+/>
+</div>
+<div class="field">
+<label for="">صورة المنتج
+<span class="file-upload-name alert-danger">
+{{errors.imageUploaded}} {{values.imageUploaded}}
+</span>
+</label>
+<div class="file-control">
+<label for="file-uploaded" class="form-control">
+<i class="bx bx-camera"></i>
+رفع صورة المنتج
+</label>
+<input type="file" name="imageUploaded" id="file-uploaded"/>
+
+</div>
+</div>
+
+<div class="actions">
+{{#if update}}
+<input type="hidden" name="image" value="{{values.imageUploaded}}"/>
+<button type="submit" class="btn btn-success">تعديل منتج</button>
+<input type="hidden" name="_method" value="PUT"/>
+<input type="hidden" name="productId" value="{{values.productId}}"/>
+{{else}}
+<button type="submit" class="btn btn-success">اضافة منتج</button>
+{{/if}}
+</div>
+</form>
+</section>
+</div>
+</section>

@@ -1,0 +1,76 @@
+<section class="dashboard-product">
+    <aside class="sidebar">
+        {{> dashboardMenu}}
+    </aside>
+    <div class="dashboard-detials">
+        <form class="form-search d-flex" action="/dashboard/orders/search" method="get">
+            <button class="btn btn-primary">بحث <i class="bx bx-search"></i></button>
+            <input type="search" name="searchText" id="" class="form-control" placeholder="بحث عن طلب">
+        </form>
+        {{#if notFound}}
+        <div class="alert-error">
+            {{notFound}}
+            <a href="/dashboard/orders">مسح البحث</a>
+        </div>
+        {{/if}}
+        <div class="main-content">
+            {{#if message}}
+            <div class="alert-error">
+                {{message}}
+            </div>
+            {{/if}}
+            {{> filterOption title="سجل الطلبات" path="dashboard/orders" today=today}}
+            <div class="order">
+                <table class="orders">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" name="" id="" class="select-all"></th>
+                            <th>رقم الطلب</th>
+                            <th>اسم العميل</th>
+                            <th>تاريخ الطلب</th>
+                            <th>سعر الطلب</th>
+                            <th>وسيلة الدفع</th>
+                            <th>محول الي</th>
+                            <th>حالة الطلب</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if orders}}
+                        {{#each orders}}
+                        <tr>
+                            <th><input type="checkbox" name="" id=""></th>
+                            <td>{{orderId}}</td>
+
+                            <td>{{userId.fullname}}</td>
+                            <td>
+                                {{dateFormat createdAt "MM-DD-YYYY, hh:mm a"}}
+                            </td>
+                            <td class="price">{{formatCurrency totalPrice}}</td>
+                            <td>{{paymentMethod}}</td>
+                            <td>{{bankakAccountNo}}</td>
+                            <td>
+                                {{#if (eq status "مكتمل")}}
+                                <span class="complated">{{status}}</span>
+                                {{else if (eq status "قيد المعالجة")}}
+                                <span class="processing">{{status}}</span>
+                                {{else}}
+                                <span class="cancelled">{{status}}</span>
+                                {{/if}}
+                            </td>
+
+                            <td>
+                                <a href="/dashboard/orders/{{_id}}/details" class="btn details"><i class="bx bx-edit"></i></a>
+                                {{!-- <a href="/dashboard/orders/{{_id}}/delete?reqUrl=orders" class="btn delete"><i class="bx bx-trash"></i></a> --}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                        {{else}}
+                        <tr><th class="empty" colspan="8">لا توجد طلبات</th></tr>
+                        {{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</section>

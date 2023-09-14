@@ -1,0 +1,31 @@
+<div class="card d-flex">
+  {{#each products}}
+  <figure class="card-item">
+    <div class="card-img">
+      {{#if (eq status "غير متوفر")}}
+      <span class="btn">غير متوفر في المحزون</span>
+      {{/if}}
+      <img src="/images/{{image}}" alt="" loading="lazy"/>
+  </div>
+  <div class="card-body">
+    <figcaption><span>{{name}}</span>
+      <div class="range-price d-flex">
+        {{#each quantities}}
+          {{#if @first}}
+                <span>{{formatCurrency price}}</span>
+          {{/if}}
+          {{#if @last}}
+             <span> {{formatCurrency price}} </span>
+          {{/if}}
+        {{/each}}
+      </div>
+      <div class="actions">
+        <a href="/products/{{_id}}" class="btn btn-primary">
+          شراء
+        </a>
+      </div>
+    </figcaption>
+  </div>
+</figure>
+{{/each}}
+</div>

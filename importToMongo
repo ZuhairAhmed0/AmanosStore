@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# import collections to mongodb
+mongoimport --uri mongodb://localhost:27017/GameStoreDB --collection $1 --out $1.json

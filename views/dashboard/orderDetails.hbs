@@ -1,0 +1,165 @@
+
+
+<section class="dashboard-product">
+    <aside class="sidebar">
+        {{> dashboardMenu}}
+    </aside>
+    <div class="dashboard-detials">
+        <section class="main-content">
+        {{#each order}}
+        <section class="order order-detials">
+            <div class="order-item">
+                <h3>تفاصيل الطلب موضحه ادانه</h3>
+            <div class="d-flex">
+                <span>
+                رقم الطلب
+                </span>
+                <div>
+                {{orderId}}
+                </div>
+            </div>
+            <div class="d-flex">
+                <span>تاريخ الطلب</span>
+                <date dir="ltr">
+                {{dateFormat createdAt "MM-DD-YYYY, hh:mm a"}}
+                </date>
+            </div>
+            <div class="d-flex">
+                <span>حالة الطلب</span>
+                <date dir="ltr">
+                {{status}}
+                </date>
+            </div>
+            <div class="d-flex">
+                <span>وسيلة الدفع</span>
+                <date dir="ltr">
+                {{paymentMethod}}
+                </date>
+            </div>
+            {{#if (eq paymentMethod "بنكك")}}
+            <div class="alert-success">
+                <div class="d-flex">
+                    <span>رقم العملية</span>
+                    <span>{{transactionNo}}</span>
+                </div>
+                <div class="d-flex">
+                    <span>رقم الحساب المحول له</span>
+                    <span>{{bankakAccountNo}}</span>
+                </div>
+                <div class="d-flex">
+                    <span>مبلغ المعاملة</span>
+                    <span>{{formatCurrency transactionAmount}}</span>
+                </div>
+            </div>
+            {{/if}}
+            <div class="container">
+                <section class="order" dir="rtl">
+                <strong>تفاصيل المنتج موضحه ادانه</strong>
+                <div class="d-flex">
+                    <strong>المنتج </strong>
+                    <strong>الاجمالي </strong>
+                </div>
+                {{#each products}}
+
+                    <div class="product d-flex">
+                    <div>
+                        <span dir="rtl">{{name}}</span>
+                        -
+                        {{amount}}
+                        <strong>{{count}}x</strong>
+                    </div>
+                    <span>{{formatCurrency price}}</span>
+                    </div>
+                     {{#if topUpId}}
+                        <div class="d-flex">
+                            <strong>معرف اللاعب ID </strong>
+                            <span>{{topUpId}}</span>
+                        </div>
+                    {{/if}}
+                    {{#if topUpEmail}}
+                            <div class="d-flex">
+                                <strong>البريد الالكتروني</strong>
+                                <span>{{topUpEmail}}</span>
+                            </div>
+                            <div class="d-flex">
+                                <strong>رقم الهاتف</strong>
+                                <span>{{topUpPhone}}</span>
+                            </div>
+                            <div class="d-flex">
+                                <strong>كلمة المرور </strong>
+                                <span>{{topUpPassword}}</span>
+                            </div>
+                            <div class="d-flex">
+                                <strong>مسجل عن طريق شنو</strong>
+                                <span>{{topUpType}}</span>
+                            </div>
+                        {{/if}}
+                    <div class="d-flex">
+                    <strong>رقم المنتج</strong>
+                    <span>{{id}}</span>
+                    </div>
+                    {{#if cardNo}}
+                    <div class="d-flex alert-success">
+                        <strong style="width: 100px">ارقام البطاقات </strong>
+                        {{#each cardNo}}
+                        <span>{{this}}</span>
+                        {{/each}}
+                    </div>
+                    {{/if}}
+                    
+                    <div class="d-flex">
+                    <strong>المجموع</strong>
+                    <span>{{formatCurrency totalPrice}}</span>
+                    </div>
+                {{/each}}
+
+                <div class="d-flex">
+                    <strong>الاجمالي</strong>
+                    <span>{{formatCurrency totalPrice}}</span>
+                </div>
+                <div class="actions">
+                    {{#if (eq status "مكتمل")}}
+                    <button class="btn btn-success">الطلب مكتمل</button>
+                    {{else if (eq status "ملغي")}}
+                    <a
+                    href="/dashboard/orders/{{id}}/complated"
+                    class="btn btn-success"
+                    >اكمال الطلب</a>
+                    <button class="btn btn-primary">طلب ملغي</button>
+                    {{else}}
+                    <a
+                    href="/dashboard/orders/{{id}}/complated"
+                    class="btn btn-success"
+                    >اكمال الطلب</a>
+                    <a
+                    href="/dashboard/orders/{{id}}/cancelled"
+                    class="btn btn-primary"
+                    >الغاء الطلب</a>
+                    {{/if}}
+                </div>
+                <div>
+                    <strong>
+                    عنوان الطلب
+                    </strong>
+                    <div>
+                    الاسم:
+                    {{userId.fullname}}
+                    </div>
+                    <div>
+                    البريد الالكتروني:
+                    {{userId.email}}
+                    </div>
+                    <div>
+                    رقم الواتساب اذا تم اضافته:
+                    {{phone}}
+                    </div>
+                </div>
+                </section>
+            </div>
+            </div>
+            
+        </section>
+        {{/each}}
+        </section>
+        </div>
+    </section>

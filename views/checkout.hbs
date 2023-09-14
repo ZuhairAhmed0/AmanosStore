@@ -1,0 +1,217 @@
+<section class="checkout">
+    <div class="container">
+        <form
+            action="/user/order/confirmation"
+            method="post"
+            class="form"
+            >
+            <h3 class="form-title">تفاصيل الطلب</h3>
+            <input type="hidden" name="type-of-operation" value="{{typeOfOperation}}">
+            <input type="hidden" name="userId" value="{{user.id}}">
+            <!---=======start ======----->
+            <div class="field">
+                <label for="fullname" class="control-label">اسمك<samp class="alert-danger">*{{errors.fullname}}</samp>
+                </label>
+                <div class="form-group">
+                    <i class="bx bx-user-circle"></i>
+                    <input
+                    type="text"
+                    name="fullname"
+                    value="{{user.fullname}}" disabled class="form-control" />
+                </div>
+        </div>
+        <!---=======end ======----->
+        <!---=======start ======----->
+        <div class="field">
+            <label for="phone" class="control-label">
+                رقم الواتساب (اختياري)
+                <samp class="alert-danger">
+                    {{errors.phone}}
+                </samp></label>
+            <div class="form-group">
+                <i class="bx bxl-whatsapp"></i>
+                <input type="tel" name="phone" value="{{user.phone}}" class="form-control" />
+            </div>
+    </div>
+    <!---=======end ======----->
+    <!---=======start ======----->
+    <div class="field">
+        <label for="email" class="control-label">
+            البريد الالكتروني<samp class="alert-danger">*
+                {{errors.email}}
+            </samp></label>
+        <div class="form-group">
+            <i class="bx bx-mail-send"></i>
+            <input type="text" name="email" value="{{user.email}}" disabled class="form-control" />
+        </div>
+</div>
+<!---=======end ======----->
+<!---=======start ======----->
+
+<div class="product">
+
+    <div class="d-flex">
+        <span>المنتج</span>
+        <span>الاجمالي </span>
+    </div>
+    {{#each product}}
+    <input type="hidden" name="productId" value="{{productId}}">
+    <input type="hidden" name="name" value="{{name}}">
+    <input type="hidden" name="category" value="{{category}}">
+    <input type="hidden" name="amount" value="{{amount}}">
+    <input type="hidden" name="amountId" value="{{amountId}}">
+    <input type="hidden" name="count" value="{{count}}">
+    <input type="hidden" name="price" value="{{price}}">
+    <div class="d-flex">
+        <p>
+            <span>{{name}} - </span>
+            <span>{{count}}x</span>
+            <span>{{amount}}</span>
+            {{#if topUpId}}
+            <br>
+            <span>
+                <input type="hidden" name="topUpId" value="{{topUpId}}">
+                معرف اللاعب {{topUpId}}
+            </span>
+            {{/if}}
+            {{#if topUpEmail}}
+            <sapn>
+                <input type="hidden" name="topUpEmail" value="{{topUpEmail}}">
+                معرف الحساب {{topUpEmail}}
+                <input type="hidden" name="topUpPassword" value="{{topUpPassword}}">
+                <input type="hidden" name="topUpPhone" value="{{topUpPhone}}">
+                <input type="hidden" name="topUpType" value="{{topUpType}}">
+            </sapn>
+            {{/if}}
+        </p>
+        <span>{{formatCurrency totalPrice}}</span>
+    </div>
+    {{/each}}
+    <div class="d-flex">
+        <span>المجموع </span>
+        <strong class="alert-danger">{{formatCurrency (reduce product 'totalPrice')}}</strong>
+    </div>
+
+</div>
+
+<!---=======end ======----->
+<!---=======ststart ======----->
+<div class="field">
+    <label for="accountNumber" class="control-label">الكود الخاص بك<samp class="alert-danger">*</samp></label>
+    <div class="form-group">
+        <i class="bx bx-credit-card"></i>
+        <input type="text" value="{{ user.accountNumber }}" disabled class="form-control">
+    </div>
+</div>
+<!---=======end ======----->
+<!---=======ststart ======----->
+{{#if errors.amountId}}
+<div class="alert-error">
+    <div>{{errors.amountId}}</div>
+</div>
+{{/if}}
+<span class="method">
+    <label for=" class="control-label"">
+        <strong>اختار وسيلة الدفع<span class="alert-danger">*</span>
+        </strong>
+        <span class="alert-danger">{{errors.paymentMethod}}</span>
+    </label>
+    <div>
+        {{#if (eq typeOfOperation "wallet-top-up")}}
+        {{else}}
+            <input type="radio" class="paymentMethod" name="paymentMethod" id="wallet-balance" value="رصيد المحفظة" />
+            <label for="wallet-balance" class="control-label">رصيد المحفظة</label>
+        {{/if}}
+        {{#if errors.transactionNo}}
+        <input type="radio" checked name="paymentMethod" class="paymentMethod" id="bankak" value="بنكك" />
+        {{else if errors.transactionAmount}}
+        <input type="radio" checked name="paymentMethod" class="paymentMethod" id="bankak" value="بنكك" />
+        {{else}}
+        <input type="radio" name="paymentMethod" id="bankak" class="paymentMethod" value="بنكك" />
+        {{/if}}
+        <label for="bankak" class="control-label">بنكك</label>
+    </div>
+    <!---=======end ======----->
+    <!---=======start ======----->
+
+    <div class="payment-data">
+    {{#if errors.transactionNo}}
+    <div class="bankakInfo">
+    {{else if errors.transactionAmount}}
+    <div class="bankakInfo">
+    {{else}}
+    <div class="bankakInfo hide-bankak">
+    {{/if}}
+    <!---=======start ======----->
+        <div class="field">
+            <label for="bankakAccountNo" class="control-label">
+            رقم الحساب المحول له *
+            <span class="alert-danger">{{errors.bankakAccountNo}}</span>
+            </label>
+            <select class="form-control" name="bankakAccountNo" id="bankakAccountNo">
+            </select>
+        </div>
+        <div class="field">
+            <label for="transactionNo" class="control-label">
+            رقم العملية*
+            <span class="alert-danger">{{errors.transactionNo}}</span>
+            </label>
+            <div class="form-group">
+                <i class="bx bx-transfer"></i>
+                <input type="text" name="transactionNo" value="{{values.transactionNo}}" placeholder="مثلا 20001234567" class="form-control" />
+            </div>
+        </div>
+        <div class="field">
+            <label for="transactionAmount" class="control-label">
+            المبلغ *
+            <span class="alert-danger">{{errors.transactionAmount}}</span>
+            </label>
+            <div class="form-group">
+                <i class="bx bx-diamond"></i>
+                <input type="text" name="transactionAmount" value="{{values.transactionAmount}}" placeholder="مثلا 10000" class="form-control" />
+            </div>
+        </div>
+    <!---=======end ======----->
+    </div>
+
+    <div class="wallet-balance">
+    <p>
+    <strong>رصيد المحفظة </strong> {{formatCurrency user.balance}}
+    </p>
+    </div>
+    </div>
+    <!---=======end ======----->
+
+    <!---=======start ======----->
+    <div class="alert-danger">
+    <label class="control-label">إرشادات ما قبل الدفع:</label>
+    <ul>
+    <li>《  اذا كانت وسيلة الدفع بنكك يجب عليك كتابة الكود الخاص بك في تعليق اشعار بنكك لا يتم معالجة الطلب 》</li>
+    <li> 《 الكود الخاص  بك هو : {{ user.accountNumber }} 》</li>
+    <li>《 يتم استخدام المعلومات السابقة لتأكيد طلبك》</li>
+    <li>《 يتم الغاء الطلب اذا كانت المعلومات السابقة غير صحيحة》 </li>
+    </ul>
+
+    </div>
+<!---=======end ======----->
+
+<!---=======start ======----->
+<div class="refund-policy">
+<input type="checkbox" id="refundPolicy" />
+<label for="refundPolicy">لقد قرأت
+<a href="/terms-and-conditions">الشروط والاحكام</a>
+لهذا الموقع وأوافق عليها</label>
+</div>
+<h3 class="form-title">
+المبلغ الاجمالي :
+{{formatCurrency (reduce product 'totalPrice')}}
+</h3>
+<input type="hidden" name="totalPrice" value="{{reduce product 'totalPrice'}}">
+<div class="actions">
+<button class="btn btn-primary" type="submit"> تاكيد الطلب</button>
+</div>
+<!---=======end ======----->
+</form>
+
+</div>
+</section>

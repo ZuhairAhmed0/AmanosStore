@@ -1,0 +1,125 @@
+<section class="dashboard-product">
+    <aside class="sidebar">
+        {{> dashboardMenu}}
+    </aside>
+    
+    <div class="dashboard-detials">
+        <form class="form-search d-flex" action="/dashboard/products/search" method="get">
+        <button class="btn btn-primary">بحث <i class="bx bx-search"></i></button>
+        <input type="search" name="searchText" id="" class="form-control" placeholder="بحث عن منتج">
+    </form>
+    {{#if notFound}}
+        <div class="alert-error">
+          {{notFound}}
+          <a href="/dashboard/users">مسح البحث</a>
+        </div>
+    {{/if}}
+        <section class="main-content">
+            {{#if message}}
+            <div class="alert-error">
+                {{message}}
+            </div>
+            {{/if}}
+            <section class="filterOption">
+    <h3>
+        {{title}}
+        <i class="bx bx-spreadsheet"></i>
+    </h3>
+    <form action="/dashboard/products/filter" method="post">
+        <select name="category" class="filterData" >
+            <option disabled selected>فلتر</option>
+            <option value="topUpById">الشحن عن طريق ID</option>
+          <option value="topUpByAccount">الشحن عن طريق
+            الحساب</option>
+          <option value="gameCards">بطاقات الالعاب</option>
+          <option value="balanceTopUp">خدمات الاتصالات</option>
+            <option value="all">عرض جميع المنتجات  </option>
+        </select>
+    </form>
+    <form action="/dashboard/products/filter" method="post">
+        <select name="status" class="filterData" >
+            <option disabled selected>الحالة</option>
+            <option value="متوفر">متوفر</option>
+            <option value="غير متوفر">غير متوفر</option>
+            <option value="all">عرض جميع المنتجات  </option>
+        </select>
+    </form>
+    <form action="/dashboard/products/filter" method="post">
+        <select name="limit" class="filterData" >
+            <option disabled selected>عرض المزيد</option>
+            <option value="12">12</option>
+            <option value="24">24</option>
+            <option value="48">48</option>
+            <option value="all">عرض جميع {{title}}</option>
+        </select>
+    </form>
+    <form action="/dashboard/products/filter" method="post">
+        <input
+        type="date"
+        name="dateFilter"
+        value="{{dateFormat today 'YYYY-MM-DD'}}"
+        class="filterData"
+        />
+</form>
+</section>
+            <div class="order">
+            <table class="products">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" name="" id="" class="select-all"></th>
+                        <th>اسم المنتج</th>
+                        <th>الحالة</th>
+                        <th>المبيعات</th>
+                        <th>الايرادات</th>
+                        <th>الارباح</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#if products}}
+                    {{#each products}} 
+                    <tr>
+                        <th><input type="checkbox" name="" id=""></th>
+                        <td><span>{{name}}</span></td>
+                        <td>
+                           
+                            {{#if deleted}}
+                                <span class="cancelled">محذوف</span>
+                            {{else}}
+                                {{#if (eq status "متوفر")}}
+                                <span class="complated">{{status}}</span>
+                                {{else}}
+                                <span class="cancelled">{{status}}</span>
+                                {{/if}}
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{reduce quantities "sales"}}
+                        </td>
+                        <td>
+                            {{formatCurrency (reduce quantities "revenues")}}
+                        </td>
+                        <td>
+                            {{formatCurrency (reduce quantities "profit")}}
+                        </td>
+                        <td>
+                            {{#if deleted}}
+                            <a href="/dashboard/products/{{_id}}/details" class="btn details"><i class="bx bx-table"></i></a>
+                            <a href="/dashboard/products/{{_id}}/restore?reqUrl=products" class="btn delete"><i class="bx bx-reset"></i></a>
+                            {{else}}
+                            <a href="/dashboard/products/{{_id}}/add" class="btn edit"><i class="bx bx-edit"></i></a>
+                            <a href="/dashboard/products/{{_id}}/details" class="btn details"><i class="bx bx-table"></i></a>
+                            <a onclick="onDelete('/dashboard/products/{{_id}}/soft-delete?reqUrl=products', 'المنتج')" class="btn delete"><i class="bx bx-trash"></i></a>
+                            {{/if}}
+                            
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{else}}
+                        <tr><th class="empty" colspan="8">لا توجد منتجات</th></tr>
+                    {{/if}}
+                </tbody>
+            </table>
+        </section>
+    </div>
+</section>

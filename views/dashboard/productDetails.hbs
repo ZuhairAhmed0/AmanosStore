@@ -1,0 +1,119 @@
+<section class="dashboard-product">
+    <aside class="sidebar">
+        {{> dashboardMenu}}
+    </aside>
+    <div class="dashboard-detials">
+        <section class="main-content">
+            <div class="order">
+                {{#if success}}
+            <h3 class="alert-success">
+                {{success}}
+            </h3>
+            {{/if}}
+                <div class="order-item">
+                <h3>تفاصيل المنتج موضحه ادانه</h3>
+            <div class="d-flex">
+                <span>
+                 اسم المنتج
+                </span>
+                <div>
+                {{product.name}}
+                </div>
+            </div>
+            <div class="d-flex">
+                <span>تاريخ اضافته</span>
+                <date dir="ltr">
+                {{dateFormat product.createdAt "MM-DD-YYYY, hh:mm a"}}
+                </date>
+            </div>
+             <div class="d-flex">
+                <span>تاريخ تعديله</span>
+                <date dir="ltr">
+                {{dateFormat product.updatedAt "MM-DD-YYYY, hh:mm a"}}
+                </date>
+            </div>
+            <div class="d-flex">
+                <span>حالة المنتج</span>
+                <date dir="ltr">
+                    {{#if product.deleted}}
+                    محذوف
+                    {{else}}
+                        {{product.status}}
+                    {{/if}}
+                </date>
+            </div>
+            <div class="d-flex">
+                <span>الوصف</span>
+                <date dir="ltr">
+                {{product.description}}
+                </date>
+            </div>
+           
+            </div>
+           
+           
+            <table class="products">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" name="" id="" class="select-all"></th>
+                        <th>الفئة</th>
+                        <th>الحالة</th>
+                        <th>سعر الاجمالي</th>
+                        <th>سعر العرض</th>
+                        <th>المبيعات</th>
+                        <th>الايرادات</th>
+                        <th>الارباح</th>
+                        <th><a href="/dashboard/products/{{product.id}}/cards" class="btn btn-primary">تفاصيل البطاقات<i class="bx bx-table"></i></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each product.quantities}} 
+                    <tr>
+
+                        <th><input type="checkbox" name="" id=""></th>
+                        <td><span>{{amount}}</span></td>
+                        <td>
+                            {{#if (eq available 0)}}
+                            <span class="cancelled">غير متوفر</span>
+                            {{else}}
+                            <span class="complated">متوفر - <span>{{available}}</span>
+                            </span>
+                                
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{formatCurrency totalPrice}}
+                        </td>
+                        <td>
+                            {{formatCurrency price}}
+                        </td>
+                        <td>
+                            {{sales}}
+                        </td>
+                        <td>
+                            {{formatCurrency revenues}}
+                        </td>
+                        <td>
+                            {{formatCurrency profit}}
+                        </td>
+                        <td>
+                            {{#if ../product.deleted}}
+                            #
+                            {{else}}
+                                    <a href="/dashboard/products/add-card/{{_id}}?productId={{../product._id}}&amount={{amount}}" class="btn edit">اضافة بطاقات</a>
+                            {{/if}}
+                            {{!-- <a href="/dashboard/products/edit-card/{{_id}}?productId={{../product._id}}&amount={{amount}}&price={{price}}&totalPrice={{totalPrice}}&cardNumbers={{stringify availableCard}}" class="btn details">تعديل بطاقات</a> --}}
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <div class="productImage">
+                <img src="/images/{{product.image}}" alt="صورة المنتج">
+            </div>
+            <div class="actions">
+                <a onclick="onDelete('/dashboard/products/{{product._id}}/hard-delete?reqUrl=products', 'المنتج بشكل نهائي (لا يمكن استرجاعه بعد الحذف)')" class="btn btn-primary">حذف المنتج بشكل نهائي</a>
+            </div>
+        </section>
+    </div>
+</section>

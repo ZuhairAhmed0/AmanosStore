@@ -1,0 +1,104 @@
+<table
+    style="width: 90%;
+    margin: 15px auto;
+    padding: 15px;
+    border: 2px solid #e7e7e7;
+    border-radius: 5px;"
+    dir="rtl"
+    >
+    <thead>
+        <tr>
+            <td colspan="2" style="color: #333; font-size: 20px;">تفاصيل المنتج موضحه
+                ادناه</td>
+        </tr>
+        <tr>
+            <td style="padding: 20px; border-bottom: 1px dashed #999;"><strong
+                >المنتج</strong></td>
+            <td
+                style="padding: 20px; border-bottom: 1px dashed #999; text-align:left"
+                ><strong>الاجمالي</strong></td>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each order.products}}
+        <tr>
+            <td style="padding: 20px;">
+                <div>
+                    <span dir="rtl" style="display: inline-block;">{{name}}</span>
+                    -
+                    {{amount}}
+                    <strong>{{count}}x</strong>
+                </div>
+                {{#if topUpId}}
+                <div>
+                    معرف اللاعب -
+                    {{topUpId}}
+                </div>
+                {{/if}}
+                {{#if topUpEmail}}
+                <div>
+                    معرف اللاعب -
+                    {{topUpEmail}}
+                </div>
+                {{/if}}
+            </td>
+            <td style="text-align:left">{{formatCurrency price}}
+            </td>
+        </tr>
+        {{#if cardNo}}
+        <tr>
+            <td style="padding: 5px 20px; border-bottom: 1px dashed #999;">
+                <strong>ارقام البطاقات</strong>
+            </td>
+            <td
+                style="padding: 5px 20px; border-bottom: 1px dashed #999; text-align:left"
+                >
+                {{#each cardNo}}
+                <span>{{this}}</span>
+                {{/each}}
+            </td>
+        </tr>
+        {{/if}}
+        {{/each}}
+        <tr>
+            <td style="padding: 20px; border-bottom: 1px dashed #999;"><strong
+                >المجموع</strong></td>
+            <td
+                style="padding: 20px; border-bottom: 1px dashed #999; text-align:left"
+                >{{formatCurrency order.totalPrice}}</td>
+        </tr>
+        <tr>
+            <td style="padding: 20px; border-bottom: 1px dashed #999;"><strong>وسيلة
+                الدفع</strong></td>
+            <td
+                style="padding: 20px; border-bottom: 1px dashed #999; text-align:left"
+                >{{order.paymentMethod}}</td>
+        </tr>
+        <tr>
+            <td style="padding: 20px; border-bottom: 1px dashed #999;"><strong
+                >الإجمالي</strong></td>
+            <td
+                style="padding: 20px; border-bottom: 1px dashed #999; text-align:left"
+                >{{formatCurrency order.totalPrice}}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2" style="padding: 20px; text-align:center">
+                <div class="actions">
+                    <a href="https://amanos.zohair.tech/user/orders/{{order.id}}/details" style="padding: 7px 15px;
+                        background: green;
+                        border: none;
+                        border-radius: 5px;
+                        color: #fff;
+                        text-decoration: none;
+                        display: block;
+                        margin:
+                        5px auto;
+                        width: 120px;">
+                        تفاصيل الطلب</a>
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>

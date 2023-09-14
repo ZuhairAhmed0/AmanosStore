@@ -1,0 +1,51 @@
+<section class="dashboard-home">
+  <aside class="sidebar">
+    {{> dashboardMenu}}
+  </aside>
+  <div class="dashboard-detials">
+    <section class="add-product">
+      <form action="/dashboard/products/add-card/{{cardInfo.amountId}}" method="post" class="form">
+        <h3 class="form-title">
+           اضافة بطاقات جديدة الي  الفئة ({{cardInfo.amount}})
+        </h3>
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="amount" value="{{cardInfo.amount}}">
+        <input type="hidden" name="amountId" value="{{cardInfo.amountId}}">
+        <input type="hidden" name="productId" value="{{cardInfo.productId}}">
+        <input type="hidden" name="">
+
+        {{#if errors.cardNumbers}}
+            <div class="alert-error">
+            {{errors.cardNumbers}}
+            </div>
+        {{else if errors.totalPrice}}
+            <div class="alert-error">
+            {{errors.totalPrice}}
+            </div>
+        {{/if}}
+        <div class="field">
+          <label for="">ارقام البطاقات
+                من فضلك افصل بين كل رقم بي فاصلة (,)
+            
+          </label>
+          <input
+            type="text"
+            class="form-control"
+            name="cardNumbers"
+            value="{{cardInfo.cardNumbers}}"
+            placeholder="10000, 20000, 30000"
+              dir="auto"
+          />
+          <input type="hidden" name="cardId" value="{{cardInfo.cardId}}" autofocus>
+        </div>
+        <div class="actions">
+          {{#if cardInfo.cardId}}
+            <button type="submit" class="btn btn-success">تعديل بطاقة</button>
+          {{else}}
+            <button type="submit" class="btn btn-primary">اضافة بطاقات</button>
+          {{/if}}
+        </div>
+      </form>
+    </section>
+  </div>
+</section>

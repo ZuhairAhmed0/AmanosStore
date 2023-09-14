@@ -1,0 +1,78 @@
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amanos Store - {{title}} </title>
+    <link rel="icon" href="/images/s-logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/boxions/css/boxicons.min.css" />
+  </head>
+  <body style="padding: 0 20px; max-width: 900px; margin: 0 auto; border-radius: 10px;">
+    <!-- ========== Start Navber ========== -->
+    <!-- ========== End Navber ========== --
+
+    <!-- ========== Start Main content ========== -->
+      <main>
+        <section class="dashboard-product">
+  <div class="dashboard-detials">
+    <section class="main-content">
+        <section class="order order-detials" style="border: 1px solid #aaa; height: 90%; border-radius: 10px;">
+            <div class="order-item" style="line-height: 2; border: 0; max-width: 90%">
+                <div class="d-flex">
+                    <h3>تقرير شهر {{reports.month}}  موضحه ادانه</h3>
+                    <div class="logo">
+                        <img src="/images/logo.png" alt="Amanos" />
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <span>التاريخ</span>
+                    <date dir="ltr">
+                    {{dateFormat today "MM-DD-YYYY, hh:mm a"}}
+                    </date>
+                </div>
+                <div class="d-flex">
+                    <span>العملاء</span>
+                    <strong>{{reports.customers}}</strong>
+                </div>
+                <div class="d-flex">
+                    <span>
+                البطاقات المضافة
+                    </span>
+                    <strong>{{reports.cards}}</strong>
+                </div>
+                <div class="d-flex">
+                    <span>الطلبات</span>
+                    <strong>{{reports.orders}}</strong>
+                </div>
+                <div class="d-flex">
+                    <span>المبيعات</span>
+                    <strong>{{reports.sales}}</strong>
+                </div>
+                <div class="d-flex">
+                    <span>الايرادات</span>
+                    <strong>{{formatCurrency reports.revenues}}</strong>
+                </div>
+                <div class="d-flex">
+                    <span>الارباح</span>
+                    <strong>{{formatCurrency reports.profits}}</strong>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-success printReport" >طباعة</button>
+                </div>
+            </div>
+        </section>
+    </section>
+  </div>
+</section>
+      </main>
+
+<div class="loading-wait">
+<span></span>
+<span></span>
+<span></span>
+</div>
+    <!-- ========== End Main content ========== -->
+    <script src="/js/index.js"></script>
+  </body>
+</html>

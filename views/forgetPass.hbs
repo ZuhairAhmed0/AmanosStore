@@ -1,0 +1,120 @@
+<div class="container">
+    {{#if message}}
+    <div class="alert-error">
+        {{message}}
+    </div>
+    {{/if}}
+    {{#if isForget}}
+    <form action="/auth/forget-password" method="post" class="form" autocomplete="off" autocapitalize="off">
+        <h3 class="form-title">إعادة تعيين كلمة المرور الخاصة بك </h3>
+        <p>
+            أدخل عنوان بريدك الإلكتروني وسوف نرسل لك تعليمات لإعادة تعيين كلمة المرور الخاصة بك.
+        </p>
+        <div class="field">
+
+            <label for="email" class="control-label"><strong>البريد الالكتروني</strong><samp class="alert-danger">
+                {{errors.email}}
+            </samp></label>
+            <div class="form-group">
+                <i class="bx bx-mail-send"></i>
+                <input type="email" name="email" autofocus placeholder="ادخل البريد الالكتروني" value="{{values.email}}" class="form-control">
+            </div>
+
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn btn-primary">ارسال</button>
+        </div>
+
+    </form>
+
+    {{else if sendSuccessfully}}
+    <div class="form">
+        <h3 class="form-title">تحقق من بريدك الالكتروني</h3>
+        <p>
+            يرجى التحقق من عنوان البريد الإلكتروني {{values.email}} للحصول على إرشادات لإعادة تعيين كلمة المرور الخاصة بك.
+        </p>
+        <div class="actions">
+            <a href="/auth/forget-password" class="btn btn-dark">ارسال بريد إلكتروني مجددا</a>
+        </div>
+    </div>
+    {{else}}
+    {{#if isEdited}}
+    <form action="/auth/change-password" method="post" class="form change-password" autocomplete="off" autocapitalize="off">
+        <h3 class="form-title">
+            تغيير كلمة المرور
+        </h3>
+        <input type="hidden" name="_method" value="PUT">
+        <div class="field">
+            <label for="old_password" class="control-label">كلمة المرور القديمة
+                <samp class="alert-danger">
+                    {{errors.old_password}}
+                </samp>
+            </label>
+            <div class="form-group">
+                <i class="bx bx-show show-password"></i>
+                <i class="bx bx-hide hide-password"></i>
+                <input type="password" name="old_password" placeholder="ادخل كلمة المرور" value="{{values.old_password}}" class="form-control">
+            </div>
+
+        </div>
+        <div class="field">
+            <label for="password" class="control-label">كلمة المرور الجديدة
+                <samp class="alert-danger">
+                    {{errors.password}}
+                </samp>
+            </label>
+            <div class="form-group">
+                <i class="bx bx-show show-password"></i>
+                <i class="bx bx-hide hide-password"></i>
+                <input type="password" name="password" placeholder="ادخل كلمة المرور" value="{{values.password}}" class="form-control">
+            </div>
+        </div>
+        <div class="field">
+            <label for="repeat_password" class="control-label"> تاكيد كلمة المرور الجديدة
+                <samp class="alert-danger">
+                    {{errors.repeat_password}}
+                </samp>
+            </label>
+            <div class="form-group">
+                <i class="bx bx-show show-password"></i>
+                <i class="bx bx-hide hide-password"></i>
+                <input type="password" name="repeat_password" placeholder="تاكيد كلمة المرور" value="{{values.repeat_password}}" class="form-control">
+            </div>
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn btn-primary" onclick="onSubmit('.change-password.form', 'تغيير  كلمة المرور')">تغيير  كلمة المرور</button>
+        </div>
+    </form>
+    {{else}}
+    <form action="/auth/reset-password/{{token}}" method="post" class="form" autocomplete="off" autocapitalize="off">
+        <h3 class="form-title">
+            إعادة تعيين كلمة المرور
+        </h3>
+        <input type="hidden" name="_method" value="PUT">
+        <div class="field">
+            <label for="password" class="control-label">كلمة المرور الجديدة<samp class="alert-danger">
+                {{errors.password}}
+            </samp></label>
+            <div class="form-group">
+                <i class="bx bx-show show-password"></i>
+                <i class="bx bx-hide hide-password"></i>
+                <input type="password" name="password" autofocus placeholder="ادخل كلمة المرور الجديدة" value="{{values.password}}" class="form-control">
+            </div>
+        </div>
+        <div class="field">
+            <label for="repeat_password" class="control-label"> تاكيد كلمة المرور الجديدة<samp class="alert-danger">
+                {{errors.repeat_password}}
+            </samp></label>
+            <div class="form-group">
+                <i class="bx bx-show show-password"></i>
+                <i class="bx bx-hide hide-password"></i>
+                <input type="password" name="repeat_password" placeholder="تاكيد كلمة المرور الجديدة" value="{{values.repeat_password}}" class="form-control">
+            </div>
+        </div>
+        <div class="actions">
+            <button type="submit" class="btn btn-primary">اعادة تعيين كلمة المرور</button>
+        </div>
+    </form>
+    {{/if}}
+    {{/if}}
+</div>

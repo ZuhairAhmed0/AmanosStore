@@ -1,0 +1,40 @@
+{{#if gamesTopUp}}
+<section>
+  <div class="container">
+    <fieldset>
+      <legend>شحن الألعاب عبر ID
+        <i class="bx bx-joystick"></i></legend>
+    </fieldset>
+    {{> card products=products.topUpById}}
+  </div>
+</section>
+<section>
+  <div class="container">
+    <fieldset>
+      <legend>شحن الألعاب عبر الحساب
+        <i class="bx bx-joystick"></i></legend>
+    </fieldset>
+    {{> card products=products.topUpByAccount}}
+  </div>
+</section>
+{{else if gameCards}}
+<section>
+  <div class="container">
+    <fieldset>
+      <legend>بطاقات الالعاب
+        <i class="bx bx-credit-card"></i></legend>
+    </fieldset>
+    {{> card products=products}}
+  </div>
+</section>
+{{else if balanceTopUp}}
+<section>
+  <div class="container">
+    <fieldset>
+      <legend>شحن الرصيد
+        <i class="bx bx-mobile"></i></legend>
+    </fieldset>
+    {{> card products=products}}
+  </div>
+</section>
+{{/if}}

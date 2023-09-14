@@ -1,0 +1,35 @@
+<!-- ========== Start Header ========== -->
+    {{>header}}
+<!-- ========== End Header ========== -->
+
+{{#if products}}
+<section>
+  <div class="container">
+    <fieldset>
+      <legend>شحن الالعاب
+      <i class="bx bx-joystick"></i></legend>
+    </fieldset>
+    {{> card products=products.gamesTopUp}}
+  </div>
+</section>
+<section>
+  <div class="container">
+    <fieldset>
+      <legend>بطاقات الالعاب
+      <i class="bx bx-credit-card"></i></legend>
+    </fieldset>
+    {{> card products=products.gameCards}}
+  </div>
+</section>
+{{#if products.balanceTopUp}}
+<section>
+  <div class="container">
+    <fieldset>
+      <legend>شحن الرصيد
+      <i class="bx bx-mobile"></i></legend>
+    </fieldset>
+    {{> card products=products.balanceTopUp}}
+  </div>
+</section>
+{{/if}}
+{{/if}}

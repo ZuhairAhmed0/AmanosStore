@@ -1,0 +1,206 @@
+<section class="product-details">
+    {{#if errors.quantity}}
+    <div class="alert-error">
+       {{errors.quantity}}
+    </div>
+    {{/if}}
+    {{#if success}}
+    <div class="alert-success">
+       {{success}}
+    </div>
+    {{/if}}
+    <div class="container">
+        <!-- ========== Start Form ========== -->
+        <form action="/user/checkout" method="post">
+            <input type="hidden" name="name" value="{{product.name}}" />
+        <input type="hidden" name="image" value="{{product.image}}" />
+        <input type="hidden" name="category" value="{{product.category}}" />
+
+    <div class="details d-flex">
+        <div class="img">
+            <img src="/images/{{product.image}}" alt="{{product.image}}" />
+        </div>
+        <!-- ========== Start Details ========== -->
+        <div class="details">
+            <div class="d-flex product-title">
+                <h3 class="title">{{product.name}}</h3>
+                <span>
+                    {{#each (ratingIcon (calcRating product.reviews))}}
+                        <i class="bx bx{{this}}-star"></i>
+                    {{/each}}
+                </span>
+            </div>
+            <div class="range-price">
+                <strong>
+                    {{#each product.quantities}}
+                        {{#if @first}}
+                                {{formatCurrency price}}
+                                -
+                        {{/if}}
+                        {{#if @last}}
+                            {{formatCurrency price}}
+                        {{/if}}
+                    {{/each}}
+                </strong>
+            </div>
+            <div class="category">
+                <strong>التصنيف : </strong>
+                {{product.description}}
+            </div>
+            <input type="hidden" name="productId" value="{{product._id}}">
+
+            <div class="quantities">
+                <strong>{{product.title}}: <span class="alert-danger">
+                    {{errors.amountId}}
+                </span></strong>
+                <div class="d-flex">
+                {{#each product.quantities}}
+                    <label for="amount{{@index}}">{{amount}}</label>
+                    <input type="radio" name="amount" class="amount" id="amount{{@index}}" value="{{amount}}">
+                    <input type="radio" name="amountId" class="amountId" id="amountId{{@index}}" value="{{_id}}">
+                    <input type="radio" name="price" class="pro-price" value="{{price}}"/> 
+                    <input type="radio" name="available" class="available"  value="{{available}}"/>
+                {{/each}}
+            </div>
+            <div class="product-price">
+            </div>
+        </div>
+
+        {{#if (eq product.category 'topUpById')}}
+        <div class="field">
+            <label for="" class="control-label">معرف اللاعب ID <samp class="alert-danger">*{{errors.topUpId}}</samp></label>
+            <div class="form-group">
+                <i class="bx bx-id-card"></i>
+                <input type="text" name="topUpId" id="" class="form-control">
+            </div>
+        </div>
+        {{/if}}
+        {{#if (eq product.category 'topUpByAccount')}}
+        <div class="field">
+            <label for="" class="control-label">البريد الالكتروني او الرقم<samp class="alert-danger">{{errors.topUpEmail}}*</samp></label>
+            <div class="form-group">
+                <i class="bx bx-lock"></i>
+                <input type="text" name="topUpEmail" class="form-control">
+            </div>
+
+        </div>
+        <div class="field">
+            <label for="" class="control-label">كلمة المرور<samp class="alert-danger"e>{{errors.topUpPassword}}*</samp></label>
+            <div class="form-group">
+                <i class="bx bx-show show-password"></i>
+                <i class="bx bx-hide hide-password"></i>
+                <input type="password" name="topUpPassword" class="form-control">
+            </div>
+        </div>
+        <div class="field">
+            <label for="" class="control-label">مسجل عن طريق شنو<samp class="alert-danger">{{errors.topUpType}}*</samp></label>
+
+            <div class="form-group">
+                <i class="bx bx-id-card"></i>
+                <input type="text" name="topUpType" class="form-control">
+            </div>
+
+        </div>
+        <div class="field">
+            <label for="" class="control-label">رقم الواتساب الخاص بك<samp class="alert-danger">{{errors.topUpPhone}}*</samp></label>
+            <div class="form-group">
+                <i class="bx bxl-whatsapp"></i>
+                <input type="text" name="topUpPhone" class="form-control">
+            </div>
+        </div>
+        {{/if}}
+        <div class="d-flex actions">
+            <div class="products-count">
+                <button type="button" class="max">+</button>
+                {{#if error}}
+                <input type="number" name="count" id="" value="{{product.count}}" max="10" min="1" />
+                {{else}}
+                <input type="number" name="count" id="" value="1" max="10" min="1" />
+                {{/if}}
+            <button type="button" class="min">-</button>
+            <input type="hidden" name="type-of-operation" value="direct-purchase">
+        </div>
+        <button class="checkout btn btn-primary" type="submit">شراء سريع</button>
+        <button class="add-to-cart btn btn-dark">اضافة الي السلة</button>
+    </div>
+</div>
+<!-- ========== End Details ========== -->
+</div>
+</form>
+<!-- ========== End Form ========== -->
+<!-- ========== Start Reviews ========== -->
+<div class="container">
+<div class="reviews hide-content">
+<div class="review-count d-flex">
+<span>({{length product.reviews}}) مراجعة - {{product.name}}</span>
+<i class="bx bx-down-arrow"></i>
+</div>
+{{#each product.reviews}}
+<section class="review-item d-flex">
+{{#if (eq ../user.id user.id)}}
+<a class="review-trash" onclick="onDelete('/prodects/{{_id}}/reviews?productId={{../product._id}}', 'التقييم')"><i class="bx bx-trash"></i></a>
+{{/if}}
+<div class="img">
+{{getAtIndex user.fullname 0}}
+</div>
+<div>
+<span class="rating">
+{{#each (ratingIcon rating)}}
+<i class="bx bx{{this}}-star"></i>
+{{/each}}
+</span>
+<h4>
+{{user.fullname}}
+</h4>
+<date dir="ltr">
+{{dateFormat commentedAt "MM-DD-YYYY, hh:mm a"}}
+</date>
+<p>
+{{comment}}
+</p>
+</div>
+</section>
+{{/each}}
+</div>
+
+<div class="review-form">
+{{#if isLoggedIn}}
+<form action="/prodects/{{product._id}}/reviews" method="post" class="form">
+<div>
+<label for="">تقييمك <samp class="error">*</samp></label>
+    <span class="alert-danger">{{errors.rating}}</span>
+<div class="rating">
+<input type="radio" value="1" name="rating" id="rating1" >
+<label for="rating1"><i class="bx bx-star"></i></label>
+<input type="radio" value="2" name="rating" id="rating2" >
+<label for="rating2"><i class="bx bx-star"></i></label>
+<input type="radio" value="3" name="rating" id="rating3" >
+<label for="rating3"><i class="bx bx-star"></i></label>
+<input type="radio" value="4" name="rating" id="rating4" >
+<label for="rating4"><i class="bx bx-star"></i></label>
+<input type="radio" value="5" name="rating" id="rating5" >
+<label for="rating5"><i class="bx bx-star"></i></label>
+</div>
+</div>
+<div>
+<label for="">مراجعتك <samp class="error">*</samp></label>
+<span class="alert-danger">{{errors.comment}}</span>
+<textarea name="comment" id="" cols="30" rows="10"  class="form-control"></textarea>
+</div>
+<div class="actions">
+<button type="submit" class="btn btn-dark">ارسال</button>
+</div>
+
+</form>
+{{else}}
+<p>
+التقييم متاح فقط للأشخاص الذين سجلوا في الموقع والذين اشتروا هذا المنتج
+</p>
+{{/if}}
+</div>
+<!-- ========== End Reviews ========== -->
+
+</div>
+</div>
+
+</section>

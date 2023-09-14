@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# export collections from mongodb
+mongoexport --uri mongodb://localhost:27017/GameStoreDB --collection $1 --out $1.json
