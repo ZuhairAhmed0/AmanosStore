@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# import products to mongodb
-mongoimport --host localhost --port 27017 --db GameStoreDB --collection products --file products.json

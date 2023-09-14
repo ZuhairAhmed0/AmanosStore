@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-# export products from mongodb
-mongoexport --uri mongodb://localhost:27017/GameStoreDB --collection products --out products.json
