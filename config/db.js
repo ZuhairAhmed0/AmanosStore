@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
-  mongoose.connect(process.env.DB_URI).catch((err) => {
+  mongoose.connect(process.env.ATLAS_URI).catch((err) => {
     console.log("connection error: " + err.message);
     mongoose;
     process.exit(1);
