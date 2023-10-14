@@ -45,7 +45,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({
-      mongoUrl: process.env.DB_URI,
+      mongoUrl: process.env.ATLAS_URI,
     }),
     name: "token",
     cookie: {
