@@ -1,5 +1,5 @@
 {
-  "name": "zikashop",
+  "name": "AmanosStore",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -7,8 +7,8 @@
     "start": "node app.js",
     "dev": "NODE_ENV=development nodemon app.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Node.js", "Html", "Css", "JavaScript", "Express.js", "Handlebars", "MongoDB"],
+  "author": "Zuahir Ahmed",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
