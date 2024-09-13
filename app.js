@@ -132,6 +132,8 @@ const limit = rateLimit({
   legacyHeafers: false
 });
 
+app.set('trust proxy', 1);
+
 // Method Override
 app.use(
   methodOverride(function (req, res) {
